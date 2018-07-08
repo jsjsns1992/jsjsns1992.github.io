@@ -85,6 +85,7 @@ app.controller('homeController', function($scope, $http, $timeout, $location){
             $http({
                 method: 'POST',
                 url: 'https://cdn.fyle.me/api/file.php',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: {'id': $scope.file.id, 'password': $scope.file.pass, 'description': $scope.file.description, 'images': $scope.file.images.toString(), 'private': true},
             }).then(function (response){
                 if(response.data.length > 32) {
@@ -123,7 +124,8 @@ app.controller('fileController', function($scope, $location, $http, $routeParams
         } else {
             $http({
                 method: 'POST',
-                url: '/api/download.php',
+                url: 'https://cdn.fyle.me/api/download.php',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: {'id': $scope.file.id, 'password': $scope.file.password},
             }).then(function (response){
                 if (response.data.includes('googleusercontent.com')) {
