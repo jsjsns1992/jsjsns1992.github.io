@@ -14,10 +14,10 @@ function loadJS(file, load, defer = false) {
     head.insertBefore(scr, head.firstChild);
 }
 
-loadJS('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js');
-loadJS('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js');
-loadJS('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js');
-loadJS('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.min.js');
+loadJS('/js/angular.min.js');
+loadJS('/js/angular-route.js');
+loadJS('/js/angular-animate.js');
+loadJS('/js/angular-sanitize.min.js');
 loadJS('/js/videogular.min.js');
 loadJS('/js/vg-controls.min.js');
 loadJS('/js/vg-buffering.min.js');
