@@ -1,0 +1,89 @@
+<div class="header" ng-class="{ blur: descriptionModal || passwordModal }">
+    <h1><a href="/#!">Fyle.Me</a></h1>
+</div>
+
+<div id="workspace" ng-init="loadFile()" ng-class="{ blur: descriptionModal || passwordModal || loadingBar, clickable: descriptionModal || passwordModal || loadingBar}">
+    <form class="form">
+        <div class="icon">
+            <i class="fa {{icon}}"></i>
+        </div>
+        <table class="file-info">
+            <tr>
+                <td>File Name</td>
+                <td><div class="tooltip">{{response['shrunk_filename']}}<span class="tooltiptext">{{response['file_name']}}</span></div></td>
+            </tr>
+
+            <tr>
+                <td>File Size</td>
+                <td>{{response['file_size']}}</td>
+            </tr>
+
+            <tr>
+                <td>Downloads</td>
+                <td>{{response['download_counter']}}</td>
+            </tr>
+
+            <tr ng-hide="!response['shrunk_description']">
+                <td>Description</td>
+                <td>{{response['shrunk_description']}}<a href ng-hide="playable" ng-click="descriptionModal = !descriptionModal" ng-hide="response['shrunk_description'] == response['file_description']" class="dark more">...</a> </td>
+            </tr>
+
+            <tr ng-hide="!response['file_images']">
+                <td>Images</td>
+                <td ng-repeat="image in response['file_images'].split(',')">
+                    <img src="{{image}}" />
+                </td>
+            </tr>
+        </table>
+        <div class="features">
+            <a href ng-click="(response['file_password'] !== '') ? passwordClick() : doFile('play')" id="button">Play</a>
+            <a href ng-click="(response['file_password'] !== '') ? passwordClick() : doFile('load')" id="button">Download</a>
+        </div>
+
+    </form>
+
+    <div class="info">{{info}}</div>
+</div>
+
+<div class="footer" ng-class="{ blur: descriptionModal || passwordModal || loadingBar, clickable: descriptionModal || passwordModal || loadingBar}">
+    <a href="/guide.pdf">Guide</a>
+    <a href="#!legal/copyright">Policies</a>
+    <a href="#!contact">Contact</a> 
+</div>
+
+<div id="descriptionModal" class="modal" ng-show="descriptionModal">
+
+    <div class="modal-header">
+        <span class="close" ng-click="descriptionModal = !descriptionModal">&times;</span>
+        <h2>Description</h2>
+    </div>
+    <div class="modal-body">
+        {{response['file_description']}}
+    </div>
+    <div class="modal-footer">
+        <h6>By Uploader.</h6>
+    </div>
+    
+</div>
+    
+<div id="passwordModal" class="modal" ng-show="passwordModal">
+
+    <div class="modal-header">
+        <span class="close" ng-click="passwordModal = !passwordModal">&times;</span>
+        <h2>Password</h2>
+    </div>
+    <div class="modal-body">
+        <input type="textbox" spellcheck="false" class="input-text textbox center" ng-model="file.password" placeholder="Enter Password" autofocus/>
+    </div>
+    <div class="modal-footer">
+        <a href ng-click="doFile('play')" class="dark">Play</a>
+        <a href ng-click="doFile('download')" class="dark">Download</a>
+    </div>
+</div>
+
+<div class="spinner" ng-show="loadingBar">
+    <div class="ball ball-1"></div>
+    <div class="ball ball-2"></div>
+    <div class="ball ball-3"></div>
+    <div class="ball ball-4"></div>
+</div>

@@ -47,12 +47,12 @@ app.config(function($routeProvider) {
     })
     .when("/play/:url", {
         title: "Fyle - Video Player",
-        templateUrl: '/partials/video.html',
+        templateUrl: "/partials/video.html",
         controller: "videoController"
     })
     .when("/:id", {
         title: "Fyle - Download Your File",
-        templateUrl: function(params){ return 'https://cdn.fyle.me/api/file.php?file_hash=' + params.id; },
+        templateUrl: "/partials/file.html",
         controller: "fileController"
     })
 });
@@ -101,7 +101,7 @@ app.controller('homeController', function($scope, $http, $timeout, $location){
                 }
                 $scope['loadingBar'] = false;
             },function (error){
-        
+                $scope.info = 'Something Went Wrong!';
             });
         }
     }
@@ -116,9 +116,43 @@ app.controller('fileController', function($scope, $location, $http, $routeParams
         'password': '',
         'download_url': ''
     };
-    $scope.is_password = false;
     $scope.loadingBar = false;
     $scope.info = "";
+    $scope.icon = "fa-file-archive";
+
+    $scope.files = {
+        "video": ["mp4", "mkv", "webm", "ogg"],
+        "audio": ["mp3"],
+        "documents": ["pdf", "docx", "doc"]
+    }
+
+    $scope.loadFile = function() {
+        $scope.loadingBar = true;
+        $http({
+            method: 'GET',
+            url: 'https://cdn.fyle.me/api/file.php?file_hash=' + $scope.file.id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response){
+            $scope.response = response.data;
+            var file_ext = $scope.getExtensionFromFileName(response.data['file_name']);
+            if($scope.files['video'].indexOf(file_ext) > -1) {
+                $scope.icon = "fa-file-video";
+            } else if($scope.files['audio'].indexOf(file_ext) > -1) {
+                $scope.icon = "fa-file-audio";
+            } else if($scope.files['documents'].indexOf(file_ext) > -1) {
+                $scope.icon = "fa-file-pdf";
+            }
+            $scope.loadingBar = false;
+        });
+    }
+
+    $scope.passwordClick = function() {
+        $scope.passwordModal = !$scope.passwordModal;
+    }
+
+    $scope.getExtensionFromFileName = function(x) {
+        return x.substring(x.indexOf(".")+1);
+    }
 
     $scope.doFile = function(click) {
         $scope.passwordModal = false;
@@ -145,7 +179,7 @@ app.controller('fileController', function($scope, $location, $http, $routeParams
                 }
                 $scope.loadingBar = false;
             },function (error){
-        
+                $scope.info = 'Something Went Wrong!';
             });
             $scope.file.password = '';
         }
