@@ -1,0 +1,70 @@
+<div class="header" ng-class="{ blur: descriptionModal || imagesModal || loadingBar }">
+    <h1>Share Your Drive - <a href="/#!">Fyle.Me</a></h1>
+</div>
+<div id="workspace" ng-class="{ blur: descriptionModal || imagesModal || loadingBar , clickable: descriptionModal || imagesModal || loadingBar}">
+
+    <form class="form">
+        <input type="text" autocomplete="off" spellcheck="false" placeholder="File URL or ID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'File URL or ID'" ng-model="file.id">
+        <input type="text" autocomplete="off" spellcheck="false" placeholder="Password (Optional)" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password (Optional)'" ng-model="file.pass">
+        <button ng-click="shareFile()">Go</button>
+    </form>
+    
+    <div class="features">
+        <a href ng-click="descriptionModal = !descriptionModal" class="dark">Add Description</a><a href ng-click="imagesModal = !imagesModal" class="dark">Add Images</a>
+    </div>
+
+    <div class="info" ng-show="!loadingBar">{{info}}</div>
+</div>
+
+
+<div class="spinner" ng-show="loadingBar">
+    <div class="ball ball-1"></div>
+    <div class="ball ball-2"></div>
+    <div class="ball ball-3"></div>
+    <div class="ball ball-4"></div>
+</div>
+
+<div class="footer">
+    <a href="/guide.pdf">Guide</a>
+    <a href="#!legal/copyright">Policies</a>
+    <a href="#!contact">Contact</a> 
+</div>
+
+<div id="descriptionModal" class="modal" ng-show="descriptionModal">
+
+    <div class="modal-header">
+        <span class="close" ng-click="descriptionModal = !descriptionModal">&times;</span>
+        <h2>Add Description</h2>
+    </div>
+    <div class="modal-body">
+        <textarea spellcheck="false" ng-model="file.description" class="input-text textbox textarea"></textarea>
+    </div>
+    <div class="modal-footer">
+        <a href ng-click="descriptionModal = !descriptionModal" class="dark">Done</a>
+    </div>
+
+</div>
+
+<div id="imagesModal" class="modal" ng-show="imagesModal">
+
+<div class="modal-header">
+    <span class="close" ng-click="imagesModal = !imagesModal">&times;</span>
+    <h2>Add Images</h2>
+</div>
+<div class="modal-body">
+    <table>
+        <tr>
+            <td>
+                <input type="textbox" ng-model="img_src" spellcheck="false" class="input-text textbox"/>
+            </td>
+            <td>
+                <img ng-src="{{img_src}}">
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <a href ng-click="addImage()" id="status" class="dark">Add</a> <a href ng-click="imagesModal = !imagesModal" class="dark">Done</a>
+</div>
+
+</div>
