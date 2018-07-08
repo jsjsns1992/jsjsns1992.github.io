@@ -8,6 +8,12 @@ var app = angular.module("godOfThisSite", [
                                             "com.2fdevs.videogular.plugins.buffering",
                                             "com.2fdevs.videogular.plugins.overlayplay"
                                     ]);
+app.config(['$sceDelegateProvider', function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',
+        'https://cdn.fyle.me/api/**'
+    ]);
+}]);
 app.run(['$rootScope', '$route', function($rootScope, $route) {
     $rootScope.$on('$routeChangeSuccess', function() {
         document.title = $route.current.title;
