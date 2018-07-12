@@ -86,7 +86,7 @@ app.controller('homeController', function($scope, $http, $timeout, $location) {
                     'password': $scope.file.pass,
                     'description': $scope.file.description,
                     'images': $scope.file.images.toString(),
-                    'onedrive': $scope.onedrive
+                    'onedrive': $scope.onedrive.toString()
                 },
             }).then(function(response) {
                 if (response.data.length > 32) {
