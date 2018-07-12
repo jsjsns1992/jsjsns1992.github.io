@@ -98,7 +98,7 @@ app.controller('homeController', function($scope, $http, $timeout, $location){
                 method: 'POST',
                 url: 'https://cdn.fyle.me/api/file.php',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data: {'id': $scope.file.id, 'password': $scope.file.pass, 'description': $scope.file.description, 'images': $scope.file.images.toString(), 'oonedrive': $scope.onedrive.toString()},
+                data: {'id': $scope.file.id, 'password': $scope.file.pass, 'description': $scope.file.description, 'images': $scope.file.images.toString(), 'onedrive': $scope.onedrive.toString()},
             }).then(function (response){
                 if(response.data.length > 32) {
                     $location.path('/' + response.data);
