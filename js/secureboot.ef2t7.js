@@ -140,6 +140,10 @@ url: 'https://cdn.fyle.me/api/file.php?file_hash=' + $scope.file.id,
 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 }).then(function (response){
 $scope.response = response.data;
+if(typeof $scope.response['file_name'] == "undefined"){
+$location.path('/');
+}
+document.title = 'Fyle - ' + $scope.response['file_name'];
 var file_ext = $scope.getExtensionFromFileName(response.data['file_name']);
 if($scope.files['video'].indexOf(file_ext) > -1) {
 $scope.icon = "fa-file-video";
@@ -174,6 +178,9 @@ url: 'https://cdn.fyle.me/api/download.php',
 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 data: {'id': $scope.file.id, 'password': $scope.file.password},
 }).then(function (response){
+if(!response.data) {
+$scope.info = "File ID is Private!";
+} else {
 if (response.data.includes('googleusercontent.com')) {
 if(click == 'play') {
 $location.path('/play/' + encodeURIComponent(window.btoa(response.data)));
@@ -182,6 +189,7 @@ window.location = response.data;
 }
 } else {
 $scope.info = response.data;
+}
 }
 $scope.loadingBar = false;
 },function (error){
