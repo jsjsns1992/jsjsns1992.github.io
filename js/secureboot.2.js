@@ -98,7 +98,7 @@ $http({
 method: 'POST',
 url: 'https://cdn.fyle.me/api/file.php',
 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-data: {'id': $scope.file.id, 'password': $scope.file.pass, 'description': $scope.file.description, 'images': $scope.file.images.toString(), 'onedrive': $scope.onedrive.toString()},
+data: {'id': $scope.file.id, 'password': $scope.file.pass, 'description': $scope.file.description, 'images': $scope.file.images.toString(), 'oonedrive': $scope.onedrive.toString()},
 }).then(function (response){
 if(response.data.length > 32) {
 $location.path('/' + response.data);
@@ -181,7 +181,7 @@ data: {'id': $scope.file.id, 'password': $scope.file.password},
 if(!response.data) {
 $scope.info = "File ID is Private!";
 } else {
-if (response.data.includes('googleusercontent.com')) {
+if (response.data.includes('googleusercontent.com') || response.data.includes('sharepoint.com')) {
 if(click == 'play') {
 $location.path('/play/' + encodeURIComponent(window.btoa(response.data)));
 } else {

@@ -181,7 +181,7 @@ app.controller('fileController', function($scope, $location, $http, $routeParams
                 if(!response.data) {
                     $scope.info = "File ID is Private!";
                 } else {
-                    if (response.data.includes('googleusercontent.com')) {
+                    if (response.data.includes('googleusercontent.com') || response.data.includes('sharepoint.com')) {
                         if(click == 'play') {
                             $location.path('/play/' + encodeURIComponent(window.btoa(response.data)));
                         } else {
