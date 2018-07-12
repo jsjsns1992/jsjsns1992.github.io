@@ -120,7 +120,8 @@ $scope.passwordModal = false;
 $scope.file = {
 'id': $routeParams.id,
 'password': '',
-'download_url': ''
+'download_url': '',
+'playable': false
 };
 $scope.loadingBar = false;
 $scope.info = "";
@@ -147,8 +148,10 @@ document.title = 'Fyle - ' + $scope.response['file_name'];
 var file_ext = $scope.getExtensionFromFileName(response.data['file_name']);
 if($scope.files['video'].indexOf(file_ext) > -1) {
 $scope.icon = "fa-file-video";
+$scope.file.playable = true;
 } else if($scope.files['audio'].indexOf(file_ext) > -1) {
 $scope.icon = "fa-file-audio";
+$scope.file.playable = true;
 } else if($scope.files['documents'].indexOf(file_ext) > -1) {
 $scope.icon = "fa-file-pdf";
 }

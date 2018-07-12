@@ -31,12 +31,12 @@
             <tr ng-hide="!response['file_images']">
                 <td>Images</td>
                 <td ng-repeat="image in response['file_images'].split(',')">
-                    <img src="{{image}}" />
+                    <img ng-src="{{image}}" />
                 </td>
             </tr>
         </table>
         <div class="features">
-            <a href ng-click="(response['file_password'] !== '') ? passwordClick() : doFile('play')" id="button">Play</a>
+            <a ng-show="file.playable" href ng-click="(response['file_password'] !== '') ? passwordClick() : doFile('play')" id="button">Play</a>
             <a href ng-click="(response['file_password'] !== '') ? passwordClick() : doFile('load')" id="button">Download</a>
         </div>
 
