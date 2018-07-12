@@ -38,10 +38,6 @@ app.config(function($routeProvider) {
         title: "Fyle - Share Your Drive",
         templateUrl: "/partials/home.html",
         controller: "homeController"
-    }).when("/onedrive", {
-        title: "Fyle - Share Your OneDrive",
-        templateUrl: "/partials/home.html",
-        controller: "homeController"
     }).when("/legal/:cat", {
         title: "Fyle - Legal Policies",
         templateUrl: "/partials/legal.html",
@@ -90,10 +86,10 @@ app.controller('homeController', function($scope, $http, $timeout, $location){
         } else {
             $scope['loadingBar'] = true;
             $scope.info = 'Generating Link...';
-            if(window.location.hash == "#!/onedrive") {
+            $scope.file.id = $scope.file.id.match(/[-\w]{25,}/)[0];
+            if($scope.file.id.length == 34) {
                 $scope.onedrive = true;
             }
-            $scope.file.id = $scope.file.id.match(/[-\w]{25,}/)[0];
             $http({
                 method: 'POST',
                 url: 'https://cdn.fyle.me/api/file.php',

@@ -76,7 +76,7 @@
         <input type="textbox" spellcheck="false" class="input-text textbox center" ng-model="file.password" placeholder="Enter Password" autofocus/>
     </div>
     <div class="modal-footer">
-        <a href ng-click="doFile('play')" class="dark">Play</a>
+        <a ng-show="file.playable" href ng-click="doFile('play')" class="dark">Play</a>
         <a href ng-click="doFile('download')" class="dark">Download</a>
     </div>
 </div>
