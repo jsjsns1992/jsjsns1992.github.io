@@ -142,13 +142,13 @@ $location.path('/');
 }
 document.title = 'Fyle - ' + $scope.response['file_name'];
 var file_ext = $scope.getExtensionFromFileName(response.data['file_name']);
-if($scope.files['video'].indexOf(file_ext) > -1) {
+if($scope.files['video'].indexOf(file_ext) > -1 || $scope.files['video'].toLowerCase().indexOf(file_ext) > -1) {
 $scope.icon = "fa-file-video";
 $scope.file.playable = true;
-} else if($scope.files['audio'].indexOf(file_ext) > -1) {
+} else if($scope.files['audio'].indexOf(file_ext) > -1 || $scope.files['audio'].toLowerCase().indexOf(file_ext) > -1) {
 $scope.icon = "fa-file-audio";
 $scope.file.playable = true;
-} else if($scope.files['documents'].indexOf(file_ext) > -1) {
+} else if($scope.files['documents'].indexOf(file_ext) > -1 || $scope.files['documents'].toLowerCase().indexOf(file_ext) > -1) {
 $scope.icon = "fa-file-pdf";
 }
 $scope.loadingBar = false;
@@ -160,7 +160,7 @@ $scope.passwordModal = !$scope.passwordModal;
 }
 
 $scope.getExtensionFromFileName = function(x) {
-return x.substring(x.indexOf(".")+1);
+return x.split('.').pop();
 }
 
 $scope.doFile = function(click) {
@@ -178,13 +178,17 @@ headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 data: {'id': $scope.file.id, 'password': $scope.file.password},
 }).then(function (response){
 if(!response.data) {
-$scope.info = "File ID is Private!";
+$scope.info = "Something Went Wrong!!";
 } else {
 if (response.data.includes('googleusercontent.com') || response.data.includes('sharepoint.com')) {
 if(click == 'play') {
 $location.path('/play/' + encodeURIComponent(window.btoa(response.data)));
 } else {
-window.location = response.data;
+var downloadLink = angular.element('<a></a>');
+downloadLink.attr('href', response.data);
+downloadLink.attr('target', '_self');
+downloadLink.attr('download', $scope.response['file_name']);
+downloadLink[0].click();
 }
 } else {
 $scope.info = response.data;
