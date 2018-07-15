@@ -1,7 +1,7 @@
 <div class="header" ng-class="{ blur: descriptionModal || imagesModal || loadingBar }">
     <h1>Share Your Drive - <a href="/#!">Fyle.Me</a></h1>
 </div>
-<div id="workspace" ng-class="{ blur: descriptionModal || imagesModal || loadingBar , clickable: descriptionModal || imagesModal || loadingBar}">
+<div id="workspace" ng-init="googleInit()" ng-class="{ blur: descriptionModal || imagesModal || loadingBar , clickable: descriptionModal || imagesModal || loadingBar}">
 
     <form class="form">
         <input type="text" autocomplete="off" spellcheck="false" placeholder="File URL or ID" onfocus="this.placeholder = ''" onblur="this.placeholder = 'File URL or ID'" ng-model="file.id">
